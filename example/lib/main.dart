@@ -12,7 +12,6 @@ void main() async {
     projectId: 'YOUR_PROJECT_ID_HERE', // Replace with your project ID
     clientId: 'YOUR_CLIENT_ID_HERE', // Replace with your client ID
   );
-  LinkHiveClient.instance.dynamicLinks.create(request)
   runApp(const MyApp());
 }
 

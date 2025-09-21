@@ -1,3 +1,10 @@
+## 1.1.0 - 2025-09-21
+
+### Added
+- Added integration with [`app_links`](https://pub.dev/packages/app_links) to handle live dynamic link clicks while the app is running.
+- Introduced `getInitialLink()` and `onLinkReceived` methods in `DynamicLinksService` to support dynamic link handling during cold start and runtime.
+- Utility function `extractShortCode(Uri)` added to handle both short and full dynamic links consistently.
+
 ## 1.0.0
 
 - Initial release of the `link_hive_flutter` package.

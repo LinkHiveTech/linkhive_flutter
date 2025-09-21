@@ -49,7 +49,7 @@ final request = DynamicLinkRequest(
 // Create a new dynamic link via LinkHiveClient
 final dynamicLink = await LinkHiveClient.instance.dynamicLinks.create(request);
 
-print('Created dynamic link: ${dynamicLink.link}'
+print('Created dynamic link: ${dynamicLink}'
 );
 ```
 ### Update a Dynamic Link
@@ -59,19 +59,19 @@ final updatedLink = await LinkHiveClient.instance.dynamicLinks.update(
 'linkId',  // Replace with actual link ID
 request,
 );
-print('Updated dynamic link: ${updatedLink.link}');
+print('Updated dynamic link: ${updatedLink}');
 ```
 
 ### Get a Dynamic Link by ID
 ```dart
 final dynamicLinkById = await LinkHiveClient.instance.dynamicLinks.getById('linkId');
-print('Fetched dynamic link by ID: ${dynamicLinkById.link}');
+print('Fetched dynamic link by ID: ${dynamicLinkById}');
 ```
 
 ### Get a Dynamic Link by Short Code
 ```dart
 final dynamicLinkByShortCode = await LinkHiveClient.instance.dynamicLinks.getByShortCode('shortCode');
-print('Fetched dynamic link by short code: ${dynamicLinkByShortCode.link}');
+print('Fetched dynamic link by short code: ${dynamicLinkByShortCode}');
 ```
 
 ### Delete a Dynamic Link
@@ -84,12 +84,28 @@ print('Dynamic link deleted.');
 ```dart
 final deferredLink = await LinkHiveClient.instance.dynamicLinks.getDeferredLink();
 if (deferredLink != null) {
-print('Deferred link: ${deferredLink.link}');
+print('Deferred link: ${deferredLink}');
 } else {
 print('No deferred link found');
 }
 ```
 
+### Handle Dynamic Links with `app_links`
+
+```dart
+// Get initial dynamic link (cold start)
+final initialLink = await LinkHiveClient.instance.dynamicLinks.getInitialLink();
+if (initialLink != null) {
+  print('Initial dynamic link: ${initialLink}');
+} else {
+  print('No initial dynamic link found');
+}
+
+// Listen for dynamic links while app is running
+LinkHiveClient.instance.dynamicLinks.onLinkReceived.listen((link) {
+  print('Received dynamic link: $link');
+});
+```
 
 ## Error Handling
 
