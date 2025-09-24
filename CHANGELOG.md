@@ -1,3 +1,10 @@
+## 1.1.1 – 2025-09-24
+
+### Changed
+- Improved iOS deferred link handling:
+    - Reads clipboard only once per install.
+    - Automatically caches the link to prevent repeated popups.
+    - Returns the shortCode as a simple string.
 ## 1.1.0 - 2025-09-21
 
 ### Added

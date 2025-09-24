@@ -1,6 +1,6 @@
 name: linkhive_flutter
 description: "A Flutter plugin to connect with LinkHive SaaS for dynamic links."
-version: 1.1.0
+version: 1.1.1
 homepage: https://github.com/LinkHiveTech/linkhive_flutter
 issue_tracker: https://github.com/LinkHiveTech/linkhive_flutter/issues
 
@@ -13,10 +13,10 @@ dependencies:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
-  web: ^1.0.0
-  plugin_platform_interface: ^2.0.2
-  dio: ^5.4.0
-  flutter_secure_storage: ^8.0.0
+  web: ^1.1.1
+  plugin_platform_interface: ^2.1.8
+  dio: ^5.9.0
+  flutter_secure_storage: ^9.2.4
   app_links: ^6.4.1
 
 dev_dependencies:
