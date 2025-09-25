@@ -15,53 +15,37 @@ public class LinkhiveFlutterPlugin: NSObject, FlutterPlugin {
         switch call.method {
         case "getLinkShortCode":
             let shortCode = fetchDeferredLinkOnce()
-            result(shortCode) // Only return string
+            result(shortCode ?? "") // return empty string if nil
         default:
             result(FlutterMethodNotImplemented)
         }
     }
 
-    private func fetchDeferredLinkOnce() -> String {
-        let pasteboard = UIPasteboard.general
-        let defaults = UserDefaults.standard
-
-        // Return cached shortCode if already saved
-        if let cached = defaults.string(forKey: "deferredShortCode") {
-            return cached
+    private func fetchDeferredLinkOnce() -> String? {
+        guard let text = UIPasteboard.general.string, !text.isEmpty else {
+            return nil
         }
-
-        // Read clipboard
-        if let text = pasteboard.string, !text.isEmpty {
-            let shortCode = extractShortCode(from: text)
-            defaults.set(shortCode, forKey: "deferredShortCode") // save as string
-            pasteboard.string = "" // clear clipboard to avoid repeated popup
-            return shortCode
-        }
-
-        return "" // nothing found
+        return extractShortCode(from: text)
     }
 
     private func extractShortCode(from text: String) -> String {
-        // Case 1: plain shortCode
+        // Case 1: plain shortCode (no scheme)
         if !text.contains("://") {
             return text
         }
 
         // Try parsing URL
         if let url = URL(string: text) {
-            let pathComponents = url.pathComponents.filter { $0 != "/" }
-            if !pathComponents.isEmpty {
-                // Case 2: https://subdomain.linkhive.tech/shortCode
-                return pathComponents.last!
+            // Case 2: path-based shortCode
+            if let last = url.pathComponents.last, !last.isEmpty {
+                return last
             }
 
             // Case 3: query parameter ?shortCode=
             if let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
-               let queryItems = components.queryItems {
-                if let shortCodeItem = queryItems.first(where: { $0.name.lowercased() == "shortcode" }),
-                   let value = shortCodeItem.value {
-                    return value
-                }
+               let shortCodeItem = components.queryItems?.first(where: { $0.name.lowercased() == "shortcode" }),
+               let value = shortCodeItem.value {
+                return value
             }
         }
 

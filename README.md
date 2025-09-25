@@ -13,7 +13,7 @@ To use this plugin, follow the steps below:
 To use this plugin, add `linkhive_flutter` as a dependency in your `pubspec.yaml` file:
 ```yaml
 dependencies:
-   linkhive_flutter: ^1.0.0
+   linkhive_flutter: ^1.2.0
   
 ```
 ## Example Usage
