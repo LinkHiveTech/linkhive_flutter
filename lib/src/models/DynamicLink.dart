@@ -66,7 +66,7 @@ class DynamicLink {
           : null,
       clickCount: json['clickCount'] ?? 0,
       qrCodeUrl: json['qrCodeUrl'],
-      createdAt: DateTime.fromMillisecondsSinceEpoch(json['createdAt']),
+      createdAt: DateTime.parse(json['createdAt']),
     );
   }
 

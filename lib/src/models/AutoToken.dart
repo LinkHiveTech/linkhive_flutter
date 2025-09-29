@@ -14,6 +14,6 @@ class AuthToken {
 
   static AuthToken fromJson(Map<String, dynamic> json) => AuthToken(
     accessToken: json['accessToken'],
-    expiresAt: DateTime.fromMillisecondsSinceEpoch(json['expiresAt']),
+    expiresAt: DateTime.parse(json['expiresAt']),
   );
 }

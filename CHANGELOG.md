@@ -1,3 +1,9 @@
+## 1.2.1 - 2025-09-29
+### Fixed
+- Updated token parsing to correctly handle ISO-8601 UTC `expiresAt` strings from the server.
+- Tokens are now consistently stored and compared in UTC.
+- Resolved `type 'String' is not a subtype of type 'int'` error during token refresh.
+
 ## 1.2.0 – 2025-09-25
 ### Changed
 - iOS deferred link handling updated:

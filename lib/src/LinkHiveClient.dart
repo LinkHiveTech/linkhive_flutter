@@ -45,7 +45,7 @@ class LinkHiveClient {
       final data = response.data;
       final token = AuthToken(
         accessToken: data['accessToken'],
-        expiresAt: DateTime.fromMillisecondsSinceEpoch(data['expiresAt']),
+        expiresAt: DateTime.parse(data['expiresAt']).toUtc(),
       );
 
       // Save token securely

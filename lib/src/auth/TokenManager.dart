@@ -42,7 +42,7 @@ class TokenManager {
       final data = response.data;
       final newToken = AuthToken(
         accessToken: data['accessToken'],
-        expiresAt: DateTime.fromMillisecondsSinceEpoch(data['expiresAt']),
+        expiresAt: DateTime.parse(data['expiresAt']).toUtc(),
       );
 
       _token = newToken;
