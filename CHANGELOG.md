@@ -1,3 +1,8 @@
+## 1.2.2 - 2025-09-29
+### Changed
+- Refactored token serialization and parsing for clarity and consistency.
+- Tokens are now always stored and compared in UTC.
+- 
 ## 1.2.1 - 2025-09-29
 ### Fixed
 - Updated token parsing to correctly handle ISO-8601 UTC `expiresAt` strings from the server.

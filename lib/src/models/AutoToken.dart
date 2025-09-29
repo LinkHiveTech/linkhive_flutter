@@ -9,7 +9,7 @@ class AuthToken {
 
   Map<String, dynamic> toJson() => {
     'accessToken': accessToken,
-    'expiresAt': expiresAt.millisecondsSinceEpoch,
+    'expiresAt': expiresAt.toUtc().toIso8601String(),
   };
 
   static AuthToken fromJson(Map<String, dynamic> json) => AuthToken(
