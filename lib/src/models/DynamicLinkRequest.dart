@@ -8,6 +8,10 @@ class DynamicLinkRequest {
   final String? utmCampaign;
   final String? utmContent;
   final String? utmTerm;
+  final String? appStoreProviderToken; // pt
+  final String? appStoreCampaignToken; // ct
+  final String? appStoreMediaType; // mt (default "8")
+  final String? appStoreAffiliateToken; // at
   final String? socialMediaTitle;
   final String? socialMediaDescription;
   final String? socialMediaImageUrl;
@@ -25,6 +29,10 @@ class DynamicLinkRequest {
     this.utmCampaign,
     this.utmContent,
     this.utmTerm,
+    this.appStoreAffiliateToken,
+    this.appStoreCampaignToken,
+    this.appStoreMediaType,
+    this.appStoreProviderToken,
     this.socialMediaTitle,
     this.socialMediaDescription,
     this.socialMediaImageUrl,
@@ -44,6 +52,10 @@ class DynamicLinkRequest {
       'utmCampaign': utmCampaign,
       'utmContent': utmContent,
       'utmTerm': utmTerm,
+      'appStoreAffiliateToken': appStoreAffiliateToken,
+      'appStoreProviderToken': appStoreProviderToken,
+      'appStoreMediaType': appStoreMediaType,
+      'appStoreCampaignToken': appStoreCampaignToken,
       'socialMediaTitle': socialMediaTitle,
       'socialMediaDescription': socialMediaDescription,
       'socialMediaImageUrl': socialMediaImageUrl,

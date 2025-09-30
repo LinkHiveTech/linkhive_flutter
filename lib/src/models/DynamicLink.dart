@@ -14,6 +14,10 @@ class DynamicLink {
   final String? utmCampaign;
   final String? utmContent;
   final String? utmTerm;
+  final String? appStoreProviderToken; // pt
+  final String? appStoreCampaignToken; // ct
+  final String? appStoreMediaType; // mt (default "8")
+  final String? appStoreAffiliateToken; // at
   final String? previewUrl;
   final Map<String, dynamic>? linkMetadata;
   final int clickCount;
@@ -36,6 +40,10 @@ class DynamicLink {
     this.utmCampaign,
     this.utmContent,
     this.utmTerm,
+    this.appStoreAffiliateToken,
+    this.appStoreCampaignToken,
+    this.appStoreMediaType,
+    this.appStoreProviderToken,
     this.previewUrl,
     this.linkMetadata,
     required this.clickCount,
@@ -60,6 +68,10 @@ class DynamicLink {
       utmCampaign: json['utmCampaign'],
       utmContent: json['utmContent'],
       utmTerm: json['utmTerm'],
+      appStoreAffiliateToken: json['appStoreAffiliateToken'],
+      appStoreProviderToken: json['appStoreProviderToken'],
+      appStoreCampaignToken: json['appStoreCampaignToken'],
+      appStoreMediaType: json['appStoreMediaType'],
       previewUrl: json['previewUrl'],
       linkMetadata: json['linkMetadata'] != null
           ? Map<String, dynamic>.from(json['linkMetadata'])
@@ -87,6 +99,10 @@ class DynamicLink {
       'utmCampaign': utmCampaign,
       'utmContent': utmContent,
       'utmTerm': utmTerm,
+      'appStoreAffiliateToken': appStoreAffiliateToken,
+      'appStoreProviderToken': appStoreProviderToken,
+      'appStoreMediaType': appStoreMediaType,
+      'appStoreCampaignToken': appStoreCampaignToken,
       'previewUrl': previewUrl,
       'linkMetadata': linkMetadata,
       'clickCount': clickCount,

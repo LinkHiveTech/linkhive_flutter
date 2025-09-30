@@ -1,3 +1,11 @@
+## 1.3.0 - 2025-09-30
+### Added
+- Support for App Store campaign tracking parameters in the Flutter SDK:
+  - `appStoreProviderToken` (`pt`) — identifies the provider of the link.
+  - `appStoreCampaignToken` (`ct`) — campaign tracking token.
+  - `appStoreMediaType` (`mt`) — media type identifier (defaults to `"8"`).
+  - `appStoreAffiliateToken` (`at`) — affiliate token for tracking/referrals.
+
 ## 1.2.3 - 2025-09-30
 ### Fixed
 - Deferred links on Android now work reliably using the Install Referrer API.
