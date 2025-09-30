@@ -1,3 +1,7 @@
+## 1.2.3 - 2025-09-30
+### Fixed
+- Deferred links on Android now work reliably using the Install Referrer API.
+
 ## 1.2.2 - 2025-09-29
 ### Changed
 - Refactored token serialization and parsing for clarity and consistency.

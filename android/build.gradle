@@ -9,7 +9,6 @@ buildscript {
     }
 
     dependencies {
-        implementation 'com.android.installreferrer:installreferrer:2.2'
         classpath("com.android.tools.build:gradle:8.9.1")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
     }
@@ -48,20 +47,21 @@ android {
         minSdk = 24
     }
 
-    dependencies {
-        testImplementation("org.jetbrains.kotlin:kotlin-test")
-        testImplementation("org.mockito:mockito-core:5.0.0")
-    }
 
     testOptions {
         unitTests.all {
             useJUnitPlatform()
 
             testLogging {
-               events "passed", "skipped", "failed", "standardOut", "standardError"
-               outputs.upToDateWhen {false}
-               showStandardStreams = true
+                events "passed", "skipped", "failed", "standardOut", "standardError"
+                outputs.upToDateWhen { false }
+                showStandardStreams = true
             }
         }
     }
+}
+dependencies {
+    implementation 'com.android.installreferrer:installreferrer:2.2'
+    testImplementation("org.jetbrains.kotlin:kotlin-test")
+    testImplementation("org.mockito:mockito-core:5.0.0")
 }
