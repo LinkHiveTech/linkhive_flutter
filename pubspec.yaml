@@ -1,6 +1,6 @@
 name: linkhive_flutter
 description: "A Flutter plugin to connect with LinkHive for dynamic links."
-version: 1.4.0
+version: 1.4.1
 homepage: https://github.com/LinkHiveTech/linkhive_flutter
 issue_tracker: https://github.com/LinkHiveTech/linkhive_flutter/issues
 

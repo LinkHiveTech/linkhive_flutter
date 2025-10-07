@@ -13,7 +13,7 @@ To use this plugin, follow the steps below:
 To use this plugin, add `linkhive_flutter` as a dependency in your `pubspec.yaml` file:
 ```yaml
 dependencies:
-   linkhive_flutter: ^1.2.0
+   linkhive_flutter: ^1.4.1
   
 ```
 ## Example Usage
@@ -130,6 +130,15 @@ Add inside your `<activity>` tag:
 </intent-filter>
 ```
 Replace your.domain.com with your domain.
+
+> **Important:**  
+> Since this plugin uses third-party deep linking libraries (e.g., `app_links`), make sure to add the following inside your `<activity>` tag in `AndroidManifest.xml` to disable Flutter's native deep linking:
+>
+> ```xml
+> <meta-data android:name="flutter_deeplinking_enabled" android:value="false"/>
+> ```
+>
+> This prevents conflicts between native Flutter deep linking and your plugin.
 
 ## 2. assetlinks.json
 

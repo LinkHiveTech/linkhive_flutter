@@ -1,3 +1,9 @@
+## 1.4.1 - 2025-10-07
+### Fixed
+- Corrected Android integration documentation:
+  - Added reminder to include `<meta-data android:name="flutter_deeplinking_enabled" android:value="false"/>` in `AndroidManifest.xml` when using third-party deep linking plugins.
+  - Improved clarity on domain verification and deep link testing steps.
+  
 ## 1.4.0 - 2025-10-07
 ### Added
 - Improved Android deferred deep link support:

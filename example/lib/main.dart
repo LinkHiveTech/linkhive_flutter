@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:linkhive_flutter/linkhive_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await LinkHiveClient.instance.connect(
-    baseUrl: 'YOUR_BASE_URL_HERE', // Replace with your SaaS base URL
-    projectId: 'YOUR_PROJECT_ID_HERE', // Replace with your project ID
-    clientId: 'YOUR_CLIENT_ID_HERE', // Replace with your client ID
+    baseUrl: 'base url',
+    projectId: 'your projectId',
+    clientId: 'your clientId',
   );
+
+  print(LinkHiveClient.instance.isConnected);
+  var deferred = await LinkHiveClient.instance.dynamicLinks.getDeferredLink();
+  print(deferred);
+  var initial = await LinkHiveClient.instance.dynamicLinks.getInitialLink();
+  print('initial  $initial');
+  LinkHiveClient.instance.dynamicLinks.onLinkReceived.listen((e) {
+    print('link clicked  $e');
+  });
   runApp(const MyApp());
 }
 
