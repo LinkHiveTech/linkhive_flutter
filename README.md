@@ -116,6 +116,66 @@ The `LinkHiveClient.instance.dynamicLinks` methods throw exceptions on errors:
 - **NetworkException**: Thrown for general network-related errors.
 
 ---
+# Android Integration & Domain Verification
+## 1. Configure AndroidManifest.xml
+
+Add inside your `<activity>` tag:
+
+```xml
+<intent-filter android:autoVerify="true">
+  <action android:name="android.intent.action.VIEW" />
+  <category android:name="android.intent.category.DEFAULT" />
+  <category android:name="android.intent.category.BROWSABLE" />
+  <data android:scheme="https" android:host="subdomain.linkhive.tech" />
+</intent-filter>
+```
+Replace your.domain.com with your domain.
+
+## 2. assetlinks.json
+
+The `assetlinks.json` file is automatically hosted by the LinkHive at: https://subdomain.linkhive.tech/.well-known/assetlinks.json
+
+It contains your app's package name and SHA256 fingerprint to verify domain ownership.
+
+Example content:
+```json
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.example.your_app_package",
+      "sha256_cert_fingerprints": ["YOUR_SHA256_CERT_FINGERPRINT"]
+    }
+  }
+]
+```
+Note: Ensure your app’s package name and SHA256 fingerprint are correctly configured  in LinkHive dashboard.
+
+## 3. Verify Domain Link
+
+To check if your app’s domain verification is successful, run:
+
+```bash
+adb shell pm get-app-links com.example.your_app_package
+```
+Look for a line like:
+`
+Domain verification state:
+your.domain.com: verified
+`
+If the domain shows verified, your setup is correct.
+
+## 4. Test Deep Link with adb
+
+Use the following command to simulate opening a deep link on your Android device or emulator:
+
+```bash
+adb shell am start -a android.intent.action.VIEW -c android.intent.category.BROWSABLE -d "https://subdomain.linkhive.tech/shortCode"
+```
+
+Replace the URL with your actual deep link.
+If your app is properly configured, this command will open your app directly to the linked content.
 
 ## Notes
 

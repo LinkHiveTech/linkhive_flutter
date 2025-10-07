@@ -1,3 +1,10 @@
+## 1.4.0 - 2025-10-07
+### Added
+- Improved Android deferred deep link support:
+  - Native Android implementation to retrieve deferred link short codes.
+  - Example Android plugin implementation included.
+  - Detailed documentation added for Android integration and domain verification.
+  
 ## 1.3.0 - 2025-09-30
 ### Added
 - Support for App Store campaign tracking parameters in the Flutter SDK:
