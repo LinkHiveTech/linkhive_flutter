@@ -1,3 +1,10 @@
+## 1.5.0 - 2025-10-18
+### Added
+- Structured logging with configurable logger.
+- Attribution and analytics event tracking APIs.
+- Improved error handling with detailed logging.
+- Optional debug logging toggle.
+
 ## 1.4.1 - 2025-10-07
 ### Fixed
 - Corrected Android integration documentation:

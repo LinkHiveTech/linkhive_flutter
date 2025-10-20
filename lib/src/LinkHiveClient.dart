@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:linkhive_flutter/src/services/EventTrackingService.dart';
+import 'package:logger/logger.dart';
 import 'auth/AuthInterceptor.dart';
 import 'auth/TokenManager.dart';
 import 'auth/TokenStorage.dart';
@@ -13,11 +15,15 @@ class LinkHiveClient {
 
   late final DynamicLinksService dynamicLinks;
 
+  late final EventTrackingService eventTrackingService;
+
   LinkHiveClient._internal();
 
   late final Dio _dio;
 
   bool _connected = false;
+
+  late final Logger _logger;
 
   late TokenManager _tokenManager;
   final TokenStorage _tokenStorage = TokenStorage();
@@ -26,8 +32,13 @@ class LinkHiveClient {
     required String baseUrl,
     required String projectId,
     required String clientId,
+    bool enableLogging = false,
   }) async {
     if (_connected) return;
+
+    _logger = Logger(level: enableLogging ? Level.debug : Level.off);
+
+    _logger.i('Connecting to $baseUrl with projectId $projectId');
 
     _dio = Dio(BaseOptions(baseUrl: baseUrl));
     _tokenManager = TokenManager(baseUrl, _tokenStorage, clientId);
@@ -54,8 +65,18 @@ class LinkHiveClient {
       // Initialize token manager
       await _tokenManager.init();
 
+      _logger.i(
+        'Authentication succeeded. Access token expires at: ${data['expiresAt']}',
+      );
+
       // Initialize services
-      dynamicLinks = DynamicLinksService(_dio, projectId);
+      eventTrackingService = EventTrackingService(_dio, _logger);
+      dynamicLinks = DynamicLinksService(
+        _dio,
+        projectId,
+        eventTrackingService,
+        _logger,
+      );
 
       _connected = true;
     } on DioException catch (e) {

@@ -8,11 +8,10 @@ void main() async {
     baseUrl: 'base url',
     projectId: 'your projectId',
     clientId: 'your clientId',
+    enableLogging: true,
   );
 
   print(LinkHiveClient.instance.isConnected);
-  var deferred = await LinkHiveClient.instance.dynamicLinks.getDeferredLink();
-  print(deferred);
   var initial = await LinkHiveClient.instance.dynamicLinks.getInitialLink();
   print('initial  $initial');
   LinkHiveClient.instance.dynamicLinks.onLinkReceived.listen((e) {

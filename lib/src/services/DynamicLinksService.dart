@@ -1,6 +1,10 @@
 import 'package:app_links/app_links.dart';
 import 'package:flutter/services.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:linkhive_flutter/src/models/attribution_event_request.dart';
+import 'package:linkhive_flutter/src/services/EventTrackingService.dart';
+import 'package:logger/logger.dart';
 import '../Utils.dart';
 import '../exceptions.dart';
 import '../models/DynamicLink.dart';
@@ -9,12 +13,19 @@ import '../models/DynamicLinkRequest.dart';
 class DynamicLinksService {
   final Dio _dio;
   final String _projectId;
+  final EventTrackingService eventTrackingService;
+  final Logger logger;
   static const MethodChannel _channel = MethodChannel(
     'com.linkhive.deferredlink',
   );
   final _appLinks = AppLinks();
 
-  DynamicLinksService(this._dio, this._projectId);
+  DynamicLinksService(
+    this._dio,
+    this._projectId,
+    this.eventTrackingService,
+    this.logger,
+  );
 
   Future<DynamicLink> create(DynamicLinkRequest request) async {
     try {
@@ -76,7 +87,17 @@ class DynamicLinksService {
     try {
       final String? referrer = await _channel.invokeMethod('getLinkShortCode');
       if (referrer == null || referrer.isEmpty) return null;
-      return getByShortCode(referrer);
+      DynamicLink dynamicLink = await getByShortCode(referrer);
+      eventTrackingService.sendAnalytics(dynamicLink.id);
+      eventTrackingService.createAttributionEventRequest(
+        dynamicLink.id,
+        AttributionEventType.CLICK,
+      );
+      eventTrackingService.createAttributionEventRequest(
+        dynamicLink.id,
+        AttributionEventType.INSTALL,
+      );
+      return dynamicLink;
     } on PlatformException catch (e) {
       throw NetworkException('Failed to get deferred link', cause: e);
     }
@@ -87,11 +108,20 @@ class DynamicLinksService {
     try {
       final Uri? initialUri = await _appLinks.getInitialLink();
       if (initialUri == null) return null;
-
+      //await FlutterSecureStorage().deleteAll();
       final String? shortCode = Utils.extractShortCode(initialUri);
       if (shortCode == null) return null;
-
-      return await getByShortCode(shortCode);
+      DynamicLink dynamicLink = await getByShortCode(shortCode);
+      eventTrackingService.sendAnalytics(dynamicLink.id);
+      eventTrackingService.createAttributionEventRequest(
+        dynamicLink.id,
+        AttributionEventType.CLICK,
+      );
+      eventTrackingService.createAttributionEventRequest(
+        dynamicLink.id,
+        AttributionEventType.FIRST_OPEN,
+      );
+      return dynamicLink;
     } catch (e) {
       throw NetworkException('Failed to get initial dynamic link', cause: e);
     }
@@ -104,7 +134,17 @@ class DynamicLinksService {
       if (shortCode == null) {
         throw FormatException('Invalid dynamic link: no shortCode in $uri');
       }
-      return await getByShortCode(shortCode);
+      DynamicLink dynamicLink = await getByShortCode(shortCode);
+      eventTrackingService.sendAnalytics(dynamicLink.id);
+      eventTrackingService.createAttributionEventRequest(
+        dynamicLink.id,
+        AttributionEventType.CLICK,
+      );
+      eventTrackingService.createAttributionEventRequest(
+        dynamicLink.id,
+        AttributionEventType.REOPEN,
+      );
+      return dynamicLink;
     });
   }
 
