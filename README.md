@@ -13,7 +13,7 @@ To use this plugin, follow the steps below:
 To use this plugin, add `linkhive_flutter` as a dependency in your `pubspec.yaml` file:
 ```yaml
 dependencies:
-   linkhive_flutter: ^1.4.1
+   linkhive_flutter: ^1.5.1
   
 ```
 ## Example Usage
@@ -200,7 +200,7 @@ If your app is properly configured, this command will open your app directly to 
 
   Also, ensure that your Flutter project has the required permissions and settings for deep linking, as outlined in the [Flutter Plugin Documentation](https://flutter.dev/docs/get-started/install).
 
-- **LinkHive Documentation**: For detailed information about LinkHive, check the [LinkHive Docs](https://linkhive-docs.vercel.app/docs/intro).
+- **LinkHive Documentation**: For detailed information about LinkHive, check the [LinkHive Docs](https://docs.linkhive.tech).
 
 ---
 

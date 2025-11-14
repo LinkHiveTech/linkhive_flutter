@@ -154,10 +154,16 @@ class DynamicLinksService {
       return NotFoundException('$context: resource not found', cause: e);
     }
     if (status != null) {
+      Map<String, dynamic>? details;
+      if (e.response?.data is Map<String, dynamic>) {
+        details = e.response?.data as Map<String, dynamic>?;
+      } else if (e.response?.data is String) {
+        details = {'message': e.response?.data};
+      }
       return ApiException(
         context,
         statusCode: status,
-        details: e.response?.data,
+        details: details,
         cause: e,
       );
     }

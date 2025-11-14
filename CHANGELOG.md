@@ -1,3 +1,8 @@
+## 1.5.1 - 2025-11-14
+### Fixed
+- Error detail parsing for both `Map` and `String` responses.
+- Updated and corrected documentation link in the README.
+
 ## 1.5.0 - 2025-10-18
 ### Added
 - Structured logging with configurable logger.
